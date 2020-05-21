@@ -38,12 +38,24 @@ import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
+import {loadLibraries} from '../lib/libraries/library-manager.js';
 
 class GUI extends React.Component {
+    constructor (props, context) {
+        super(props, context);
+        this.state = {
+            loadingLibrary: true
+        };
+    }
+
     componentDidMount () {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+
+        loadLibraries().then(() => {
+            this.setState({loadingLibrary: false});
+        });
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
@@ -83,7 +95,7 @@ class GUI extends React.Component {
         } = this.props;
         return (
             <GUIComponent
-                loading={fetchingProject || isLoading || loadingStateVisible}
+                loading={fetchingProject || isLoading || loadingStateVisible || this.state.loadingLibrary}
                 {...componentProps}
             >
                 {children}

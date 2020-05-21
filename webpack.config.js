@@ -52,10 +52,12 @@ const base = {
                     '@babel/plugin-syntax-dynamic-import',
                     '@babel/plugin-transform-async-to-generator',
                     '@babel/plugin-proposal-object-rest-spread',
+                    '@babel/plugin-transform-runtime',
                     ['react-intl', {
                         messagesDir: './translations/messages/'
                     }]],
-                presets: ['@babel/preset-env', '@babel/preset-react']
+                presets: ['@babel/preset-env', '@babel/preset-react'],
+                sourceType: 'unambiguous'
             }
         },
         {
@@ -92,7 +94,8 @@ const base = {
             })
         ]
     },
-    plugins: []
+    plugins: [],
+    target: 'electron-renderer'
 };
 
 module.exports = [
