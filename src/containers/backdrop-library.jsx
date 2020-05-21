@@ -4,8 +4,7 @@ import React from 'react';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import VM from 'scratch-vm';
 
-import backdropLibraryContent from '../lib/libraries/backdrops.json';
-import backdropTags from '../lib/libraries/backdrop-tags';
+import {getBackdropTags, getBackdrops} from '../lib/libraries/library-manager.js';
 import LibraryComponent from '../components/library/library.jsx';
 
 const messages = defineMessages({
@@ -38,9 +37,9 @@ class BackdropLibrary extends React.Component {
     render () {
         return (
             <LibraryComponent
-                data={backdropLibraryContent}
+                data={getBackdrops()}
                 id="backdropLibrary"
-                tags={backdropTags}
+                tags={getBackdropTags()}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}
                 onItemSelected={this.handleItemSelect}
                 onRequestClose={this.props.onRequestClose}

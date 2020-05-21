@@ -4,9 +4,8 @@ import React from 'react';
 import {injectIntl, intlShape, defineMessages} from 'react-intl';
 import VM from 'scratch-vm';
 
-import spriteLibraryContent from '../lib/libraries/sprites.json';
 import randomizeSpritePosition from '../lib/randomize-sprite-position';
-import spriteTags from '../lib/libraries/sprite-tags';
+import {getSpriteTags, getSprites} from '../lib/libraries/library-manager.js';
 
 import LibraryComponent from '../components/library/library.jsx';
 
@@ -35,9 +34,9 @@ class SpriteLibrary extends React.PureComponent {
     render () {
         return (
             <LibraryComponent
-                data={spriteLibraryContent}
+                data={getSprites()}
                 id="spriteLibrary"
-                tags={spriteTags}
+                tags={getSpriteTags()}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}
                 onItemSelected={this.handleItemSelect}
                 onRequestClose={this.props.onRequestClose}
